@@ -24,7 +24,7 @@ class GifListViewModel @Inject constructor(
     val isError: StateFlow<Boolean> = _isError
 
     private var currentPage = 0
-    private val pageSize = 20
+    private val pageSize = 50
 
     init {
         getGifs()
