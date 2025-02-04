@@ -10,7 +10,6 @@ import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -23,22 +22,16 @@ import com.wwl.test.ui.reusable.Loader
 @Composable
 fun GifDetailsScreen(
     viewModel: GifDetailsViewModel,
-    gifId: String,
     navigateBack: () -> Unit
 ) {
-    val context = LocalContext.current
-    val gifUiState = viewModel.gif.collectAsState().value
-
-    LaunchedEffect(gifId) {
-        viewModel.getGif(gifId)
-    }
-
-    when(gifUiState) {
+    when (val gifUiState = viewModel.gif.collectAsState().value) {
         GifUiState.Loading -> Loader()
+
         is GifUiState.Error -> {
-            Toast.makeText(context, "Error occurred", Toast.LENGTH_SHORT).show()
+            Toast.makeText(LocalContext.current, "Error occurred", Toast.LENGTH_SHORT).show()
             navigateBack()
         }
+
         is GifUiState.Success -> {
             Box(
                 Modifier

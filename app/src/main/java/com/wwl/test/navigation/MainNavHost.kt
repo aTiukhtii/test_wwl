@@ -27,10 +27,7 @@ fun MainNavHost(
             }
         }
         composable(Routes.GifDetailsScreen.route) {
-            GifDetailsScreen(
-                hiltViewModel(),
-                it.arguments?.getString("id") ?: "",
-            ) {
+            GifDetailsScreen(hiltViewModel()) {
                 navHostController.popBackStack()
             }
         }
